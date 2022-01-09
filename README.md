@@ -45,7 +45,7 @@ sudo pritunl default-password
 
 ДЗ 4: Практика управления ресурсамиyandex cloud через yc.
 
-testapp_IP = 51.250.14.35
+testapp_IP = 51.250.2.236
 testapp_port = 9292
 
 Установка yc
