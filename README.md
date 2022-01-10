@@ -42,3 +42,21 @@ sudo pritunl default-password
 ```
 
 Затем создать сервер с DNS именем, организацию и пользователя. Получить SSL сертификат. Связать сервер с организацией. Создать пользователя и сохранить файл с настройками для подключения.
+
+ДЗ 4: Практика управления ресурсамиyandex cloud через yc.
+
+testapp_IP = 51.250.2.236
+testapp_port = 9292
+
+Установка yc
+```shell
+curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+```
+Создание профиля
+```shell
+yc init
+```
+Просмотр профиля
+```shell
+yc config profile get <имя профиля>
+```
