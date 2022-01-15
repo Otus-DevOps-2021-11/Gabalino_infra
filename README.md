@@ -1,7 +1,7 @@
 # Gabalino_infra
 Gabalino Infra repository
 
-ДЗ 3: Запуск VM в Yandex Cloud, управление правилами фаервола, настройка SSH подключения, настройка SSH подключения через Bastion Host, настройка VPN сервера и VPN-подключения.
+__ДЗ 3: Запуск VM в Yandex Cloud, управление правилами фаервола, настройка SSH подключения, настройка SSH подключения через Bastion Host, настройка VPN сервера и VPN-подключения__
 
 bastion_IP = 62.84.113.202
 someinternalhost_IP = 10.128.0.33
@@ -43,7 +43,7 @@ sudo pritunl default-password
 
 Затем создать сервер с DNS именем, организацию и пользователя. Получить SSL сертификат. Связать сервер с организацией. Создать пользователя и сохранить файл с настройками для подключения.
 
-ДЗ 4: Практика управления ресурсамиyandex cloud через yc.
+__ДЗ 4: Практика управления ресурсамиyandex cloud через yc__
 
 testapp_IP = 51.250.2.236
 testapp_port = 9292
@@ -61,7 +61,7 @@ yc init
 yc config profile get <имя профиля>
 ```
 
-ДЗ №Х
+__ДЗ 5: Подготовка базового образа VM при помощи Packer__
 
 Установить Packer
 https://packer.io/downloads.html
@@ -97,9 +97,8 @@ packer validate ./ubuntu16.json
 Сборка
 ```shell
 packer build --var-file=variables.json ./ubuntu16.json
-packer build --var-file=variables-full.json ./immutable.json
 ```
-Собрать образ и зупустить VM
+Собрать образ и запустить VM
 ```shell
 cd packer && \
 ./scripts/build-reddit-image.sh && \
