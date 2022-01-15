@@ -1,6 +1,6 @@
 {
     "yc_folder_id": "bla-bla-bla",
-    "yc_service_account_key_file": "../../key.json",
+    "yc_service_account_key_file": "key.json",
     "yc_source_image_family": "ubuntu-1604-lts",
     "yc_image_family": "reddit-base"
 }
