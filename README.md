@@ -1,7 +1,7 @@
 # Gabalino_infra
 Gabalino Infra repository
 
-ДЗ 3: Запуск VM в Yandex Cloud, управление правилами фаервола, настройка SSH подключения, настройка SSH подключения через Bastion Host, настройка VPN сервера и VPN-подключения.
+__ДЗ 3: Запуск VM в Yandex Cloud, управление правилами фаервола, настройка SSH подключения, настройка SSH подключения через Bastion Host, настройка VPN сервера и VPN-подключения__
 
 bastion_IP = 62.84.113.202
 someinternalhost_IP = 10.128.0.33
@@ -43,7 +43,7 @@ sudo pritunl default-password
 
 Затем создать сервер с DNS именем, организацию и пользователя. Получить SSL сертификат. Связать сервер с организацией. Создать пользователя и сохранить файл с настройками для подключения.
 
-ДЗ 4: Практика управления ресурсамиyandex cloud через yc.
+__ДЗ 4: Практика управления ресурсамиyandex cloud через yc__
 
 testapp_IP = 51.250.2.236
 testapp_port = 9292
@@ -59,4 +59,48 @@ yc init
 Просмотр профиля
 ```shell
 yc config profile get <имя профиля>
+```
+
+__ДЗ 5: Подготовка базового образа VM при помощи Packer__
+
+Установить Packer
+https://packer.io/downloads.html
+
+Посмотреть folder-id
+```shell
+yc config list
+```
+Создайть сервисный аккаунт
+```shell
+SVC_ACCT="<придумайте имя>"
+FOLDER_ID="<замените на собственный>"
+yc iam service-account create --name $SVC_ACCT --folder-id $FOLDER_ID
+```
+Назначить роль editor
+```shell
+ACCT_ID=$(yc iam service-account get $SVC_ACCT | \
+   grep ^id | \
+   awk '{print $2}')
+
+yc resource-manager folder add-access-binding --id $FOLDER_ID \
+   --role editor \
+   --service-account-id $ACCT_ID
+```
+Создание service account key file
+```shell
+yc iam key create --service-account-id $ACCT_ID --output <вставьте свой путь>/key.json
+```
+Проверка шаблона
+```shell
+packer validate ./ubuntu16.json
+```
+Сборка
+```shell
+packer build --var-file=variables.json ./ubuntu16.json
+```
+Собрать образ и запустить VM
+```shell
+cd packer && \
+./scripts/build-reddit-image.sh && \
+../config-scripts/create-reddit-vm.sh
 ```
