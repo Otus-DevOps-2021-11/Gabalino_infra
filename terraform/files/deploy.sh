@@ -1,6 +1,8 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
 set -e
 APP_DIR=${1:-$HOME}
+while PID=$(pidof -s apt-get); do tail --pid=$PID -f /dev/null; done && \
 sudo apt-get install -y git
 git clone -b monolith https://github.com/express42/reddit.git $APP_DIR/reddit
 cd $APP_DIR/reddit
