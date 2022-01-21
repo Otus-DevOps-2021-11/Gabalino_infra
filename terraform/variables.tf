@@ -40,3 +40,11 @@ variable instance_count {
   description = "VM count"
   default     = 1
 }
+
+variable "platform_id" {
+  default = "standard-v1"
+}
+
+variable "preemptible" {
+  default = false
+}

@@ -6,14 +6,19 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "app" {
-  name     = "reddit-app-${count.index + 1}"
-  hostname = "reddir-app-${count.index + 1}"
-  count    = var.instance_count
+  name        = "reddit-app-${count.index + 1}"
+  hostname    = "reddir-app-${count.index + 1}"
+  count       = var.instance_count
+  platform_id = var.platform_id
 
   resources {
     cores         = 2
     core_fraction = 20
     memory        = 2
+  }
+
+  scheduling_policy {
+    preemptible = var.preemptible
   }
 
   boot_disk {
