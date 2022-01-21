@@ -1,5 +1,5 @@
 #!/bin/bash
-image_id=$(yc compute image get-latest-from-family reddit-full | grep ^id | awk '{print $2}') && \
+image_id=$(yc compute image get-latest-from-family reddit-base | grep ^id | awk '{print $2}') && \
 yc compute instance delete --name reddit-app && \
 yc compute instance create \
   --name reddit-app \
