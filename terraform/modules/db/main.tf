@@ -1,14 +1,9 @@
-provider "yandex" {
-  service_account_key_file = var.service_account_key_file
-  cloud_id                 = var.cloud_id
-  folder_id                = var.folder_id
-  zone                     = var.zone
-}
-
-resource "yandex_compute_instance" "app" {
-  name        = "reddit-app-${count.index + 1}"
-  hostname    = "reddir-app-${count.index + 1}"
-  count       = var.instance_count
+resource "yandex_compute_instance" "db" {
+  name = "reddit-db"
+  labels = {
+    tags = "reddit-db"
+  }
+  hostname    = "reddir-db"
   platform_id = var.platform_id
 
   resources {
@@ -44,12 +39,10 @@ resource "yandex_compute_instance" "app" {
     private_key = file(var.private_key_path)
   }
 
-  provisioner "file" {
-    source      = "files/puma.service"
-    destination = "/tmp/puma.service"
-  }
-
   provisioner "remote-exec" {
-    script = "files/deploy.sh"
+    inline = [
+      "sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/' /etc/mongod.conf",
+      "sudo systemctl restart mongod.service"
+    ]
   }
 }
