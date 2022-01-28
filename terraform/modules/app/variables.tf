@@ -40,3 +40,7 @@ variable database_url {
   description = "MongoDB url"
   default = "127.0.0.1:27017"
 }
+
+variable "environment" {
+  description = "Env type"
+}

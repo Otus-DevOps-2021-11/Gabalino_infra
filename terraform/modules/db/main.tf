@@ -1,7 +1,8 @@
 resource "yandex_compute_instance" "db" {
   name = "reddit-db"
   labels = {
-    tags = "reddit-db"
+    tags = "reddit-db",
+    env = var.environment
   }
   hostname    = "reddir-db"
   platform_id = var.platform_id
