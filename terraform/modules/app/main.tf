@@ -1,9 +1,10 @@
 resource "yandex_compute_instance" "app" {
   name = "reddit-app-${count.index + 1}"
   labels = {
-    tags = "reddit-app"
+    tags = "reddit-app",
+    env = var.environment
   }
-  hostname    = "reddir-app"
+  hostname    = "reddir-app-${count.index + 1}"
   count       = var.instance_count
   platform_id = var.platform_id
 

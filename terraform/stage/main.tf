@@ -13,6 +13,7 @@ module "app" {
   subnet_id        = var.subnet_id
   platform_id      = var.platform_id
   preemptible      = var.preemptible
+  environment      = var.environment
   instance_count   = var.instance_count
   database_url     = "${module.db.internal_ip_address_db}:27017"
 }
@@ -25,4 +26,5 @@ module "db" {
   subnet_id        = var.subnet_id
   platform_id      = var.platform_id
   preemptible      = var.preemptible
+  environment      = var.environment
 }
