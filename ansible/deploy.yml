@@ -1,0 +1,25 @@
+- name: Deploy App
+  hosts: app
+  tasks:
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/ubuntu/reddit
+        version: monolith
+      notify: restart puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/ubuntu/reddit
+
+    - name: Print App URL
+      ansible.builtin.debug:
+        msg: "{{ ansible_nodename }} http://{{ hostvars[inventory_hostname].inventory_hostname }}:9292"
+
+  handlers:
+  - name: restart puma
+    become: true
+    systemd:
+      name: puma
+      state: restarted

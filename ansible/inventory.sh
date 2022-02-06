@@ -1,8 +1,5 @@
-#!/usr/bin/env bash
-#
-# from antik9
-# don't support instance count
-#
+#!/usr/bin/bash
+
 set -euo pipefail
 IFS=$'\n\t'
 

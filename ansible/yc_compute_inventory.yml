@@ -1,0 +1,21 @@
+---
+- name: Ansible dynamic inventory for Yandex Cloud
+  hosts: 127.0.0.1
+
+  tasks:
+    - name: Create directory
+      ansible.builtin.file:
+        path: ~/.ansible/plugins/inventory
+        state: directory
+        recurse: yes
+
+    - name: Copy script
+      become: true
+      copy:
+        src: files/yc_compute.py
+        # https://github.com/ansible-collections/community.general/pull/772
+        # https://raw.githubusercontent.com/st8f/community.general/d3809f83c4d6968d5eb449b052a894d5e3ff865c/plugins/inventory/yc_compute.py
+        dest: ~/.ansible/plugins/inventory/yc_compute.py
+
+    - name: Install yandexcloud python package
+      shell: python3 -m pip install yandexcloud
