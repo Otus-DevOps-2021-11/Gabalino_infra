@@ -4,7 +4,7 @@
 
   tasks:
   - name: Create directory
-    ansible.builtin.file:
+    file:
       path: ~/.ansible/plugins/inventory
       state: directory
       recurse: yes
