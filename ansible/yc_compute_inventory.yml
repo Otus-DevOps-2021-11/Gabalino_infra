@@ -1,6 +1,7 @@
 ---
 - name: Ansible dynamic inventory for Yandex Cloud
-  hosts: 127.0.0.1
+  hosts: localhost
+  connection: local
 
   tasks:
     - name: Create directory
@@ -18,4 +19,5 @@
         dest: ~/.ansible/plugins/inventory/yc_compute.py
 
     - name: Install yandexcloud python package
-      shell: python3 -m pip install yandexcloud
+      pip:
+        name: yandexcloud
