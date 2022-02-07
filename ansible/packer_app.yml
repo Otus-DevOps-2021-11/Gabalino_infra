@@ -1,0 +1,19 @@
+---
+- name: Install Ruby && Bundler
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Wait unlock /var/lib/dpkg/lock-frontend
+    shell: while PID=$(pidof -s apt-get); do tail --pid=$PID -f /dev/null; done
+
+  - name: Install ruby and rubygems and required packages
+    apt:
+      name:
+        - ruby-full
+        - ruby-bundler
+        - build-essential
+        - git
+      update_cache: yes
+      autoclean: yes
+#     lock_timeout: 300
