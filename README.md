@@ -104,3 +104,23 @@ cd packer && \
 ./scripts/build-reddit-image.sh && \
 ../config-scripts/create-reddit-vm.sh
 ```
+```shell
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+deactivate
+```
+```shell
+pip install -r requirements.txt
+cd app
+molecule init scenario --scenario-name default -r app -d vagrant #create template
+molecule/default/tests/test_default.py #add tests
+molecule/default/molecule.yml #vm properties
+molecule create
+molecule list
+molecule login -h instance #ssh
+molecule/default/playbook.yml #edit playbook
+molecule converge #run playbook
+molecule verify #run test
+```
