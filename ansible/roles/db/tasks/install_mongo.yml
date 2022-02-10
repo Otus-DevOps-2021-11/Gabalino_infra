@@ -1,0 +1,26 @@
+---
+- name: Add APT key
+  apt_key:
+    url: https://www.mongodb.org/static/pgp/server-4.4.asc
+    state: present
+  tags: install
+
+- name: Add APT repository
+  apt_repository:
+    repo: deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse
+    state: present
+    filename: mongodb
+  tags: install
+
+- name: Install mongodb package
+  apt:
+    name: mongodb-org
+    state: present
+  tags: install
+
+- name: Configure service supervisor
+  systemd:
+    name: mongod
+    state: started
+    enabled: yes
+  tags: install
